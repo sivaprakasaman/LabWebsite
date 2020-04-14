@@ -1,0 +1,132 @@
+/*** Adjustments to the name of the site in the top header area ***/
+
+.top .department a {
+  line-height: 1.3em;
+  position: relative;
+  top: 0px;
+}
+
+
+/*** Change the url below to set the default photo for your homepage ***/
+
+.hero {
+  background-image: url('./images/homepage-hero.jpg');
+}
+
+
+/*** Styles for the news and events tabs on the homepage ***/
+
+.feed {
+  background-color: #eee;
+  overflow-y: scroll;
+}
+
+.feed .tab-content {
+  overflow-y: visible;
+}
+
+.feed .tab-content row {
+  margin: 0 10px;
+}
+
+
+/*** Styles for the four-box grid homepage option. 
+     If you don't specify valid background-image URLs, the boxes will be solid colors.  ***/
+
+.box1 a,
+.box2 a,
+.box3 a,
+.box4 a {
+  background-size: cover;
+  background-position: top right;
+  background-repeat: no-repeat;
+  width: 100%;
+  display: block;
+  position: relative;
+  text-decoration: none;
+}
+
+.box1 a {
+  background-image: url("./images/your-image-1.jpg");
+  background-position: 50% 50%;
+  background-color: #7ca6c0;
+  border-bottom: 8px solid #7ca6c0;
+}
+
+.box2 a {
+  background-image: url("./images/your-image-2.jpg");
+  background-position: 50% 50%;
+  background-color: #c76c14;
+  border-bottom: 8px solid #c76c14;
+}
+
+.box3 a {
+  background-image: url("./images/your-image-3.jpg");
+  background-position: 50% 50%;
+  background-color: #085c11;
+  border-bottom: 8px solid #085c11;
+}
+
+.box4 a {
+  background-image: url("./images/your-image-4.jpg");
+  background-position: 50% 50%;
+  background-color: #ffd100;
+  border-bottom: 8px solid #ffd100;
+}
+
+.images-no-border .box a {
+  border-width: 0px !important;
+}
+
+.no-images .box a {
+  background-image: none !important;
+  border-width: 8px !important;
+}
+
+.box1 a .caption,
+.box2 a .caption,
+.box3 a .caption,
+.box4 a .caption {
+  text-shadow: 2px 2px 5px #000;
+}
+
+
+/*** Make images in the page adjust to fit their container ***/
+
+.maincontent img {
+  max-width: 100%;
+}
+
+
+/*** News and Events tweaks ***/
+
+.rightnav .event-list-past-link {
+  margin-left: 0;
+}
+  
+@media only screen and (max-width: 991px) and (min-width: 768px) {
+
+  .top .department a {
+    line-height: 1.3em;
+    position: relative;
+    top: 2px;
+  }
+
+}
+
+@media only screen and (max-width: 1199px) and (min-width: 992px) {
+
+  .top .department a {
+    top: 2px;
+  }
+
+}
+
+@media only screen and (min-width: 1200px) {
+
+  .top .department a {
+    line-height: 1.2em;
+    position: relative;
+  }
+
+}

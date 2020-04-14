@@ -1,0 +1,60 @@
+<div class="feed col-lg-4 col-md-4 col-sm-4"
+     tal:define="num_to_show python:5;">
+     
+  <ul class="nav nav-tabs">
+    <li class="active col-lg-6 col-md-6 col-sm-6 col-xs-6"><a data-toggle="tab" href="#news">News</a></li>
+    <li class="col-lg-6 col-md-6 col-sm-6 col-xs-6"><a data-toggle="tab" href="#events">Upcoming Events</a></li>
+  </ul>
+  
+  <div class="tab-content">
+  
+    <div class="tab-pane fade in active" id="news">
+      <tal:spotlights tal:replace="structure python:root.Wraps.Widgets3.AudienceNews.widget(
+                                   here=container.news,
+                                   sources=[container.news],
+                                   omit_sources=[container.news.events],
+                                   event_types=[],
+                                   statuses=['published'],
+                                   num_to_show=num_to_show,
+                                   reverse=1,
+                                   widget_id='homepage-news',
+                                   empty_text='No recent news.',
+                                   simple_links=0,
+                                   title_size='small',
+                                   show_thumbs=0,
+                                   show_dates=0,
+                                   date_position='above',
+                                   show_intros=1,
+                                   show_batching=0,
+                                   show_batch_info=0,
+                                   past_url='%s/news' % container.absolute_url(),
+                                   past_text='All News...'
+                                 )" />
+    </div>  <!-- END #news -->
+    
+    <div class="tab-pane fade" id="events">
+      <tal:events tal:replace="structure python:root.Wraps.Widgets3.AudienceNews.widget(
+                               here=container.news.events,
+                               sources=[container.news.events],
+                               event_types=[],
+                               statuses=['published'],
+                               num_to_show=num_to_show,
+                               future=1,
+                               widget_id='homepage-events',
+                               empty_text='No upcoming events.',
+                               simple_links=0,
+                               title_size='small',
+                               show_thumbs=0,
+                               show_dates=0,
+                               date_position='above',
+                               show_intros=0,
+                               show_batching=0,
+                               show_batch_info=0,
+                               past_url='%s/news/events' % container.absolute_url(),
+                               past_text='All Events...',
+                             )" />
+    </div>  <!-- END #events -->
+    
+  </div>  <!-- END .tab-content -->
+  
+</div>  <!-- END .feed -->

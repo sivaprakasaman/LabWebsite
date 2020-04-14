@@ -1,0 +1,67 @@
+<tal:page metal:use-macro="container/ptMaster/macros/page">
+<tal:body metal:fill-slot="body"
+          tal:define="primary_group_id here/plPrimaryGroupId;
+                      sub_group_ids    here/plSubGroupIds;
+                      is_admin         here/pyIsAdmin;">
+
+<tal:intro tal:content="structure container/introduction | nothing" />
+
+<tal:no-groups tal:define="instructions nocall: container/instructions | root/help/lab-people-pages | nothing;"
+               tal:condition="python: instructions and not sub_group_ids">
+  <h2 tal:content="structure instructions/title"></h2>
+  <tal:instructions tal:content="structure python:instructions.document_src()" />
+  <p><strong>This introductory help text will disappear once there has been at least one group of people defined for your lab and set to display here.</strong> It will still be available in your site's <a href="../help?page=lab-people-pages">Help and Instructions section</a>.</p>
+</tal:no-groups>
+
+<tal:group tal:repeat="group_id sub_group_ids">
+
+  <section tal:define="group python:here.pyGetGroups(group_id=group_id)[0];
+                       people python:here.pyGetPeople(group_id=group_id);"
+           tal:condition="people | nothing">
+  
+    <h2 tal:content="structure group/name"></h2>
+    
+    <div class="people-list" style="border-bottom: 0px none #fff;">
+    
+      <tal:person tal:repeat="person people">
+    
+        <div class="row"
+             tal:condition="python: person">
+      
+          <div class="col col-xs-4 col-sm-3 pull-right text-right list-photo"
+               tal:define="photo person/photo | nothing;">
+            
+            <a tal:condition="python: photo" 
+               tal:attributes="href string:./ptProfile?resource_id=${person/resource_id}&group_id=${group_id};">
+               
+              <img tal:condition="python: photo"
+                   tal:attributes="src python:photo.pyPhoto(width=240, height=320, url_only=1);" />
+              
+            </a>
+            
+          </div>  <!-- END .list-photo -->
+        
+          <div class="col col-xs-8 col-sm-9 list-info">
+          
+            <div class="col col-xs-12 col-sm-7 list-name"
+                 tal:content="structure python:container.pyColumn1(person, group_id=group_id, show_bio=True)">
+            </div>  <!-- END .list-name -->
+            
+            <div class="col col-xs-12 col-sm-5 list-columns"
+                 tal:content="structure python:container.pyColumn2(person)">
+            </div>  <!-- END .list-columns -->
+            
+            </div>  <!-- END .list-info -->
+          
+        </div>  <!-- END .row -->
+    
+      </tal:person>
+    
+    </div>  <!-- END .people-list -->
+  
+  </section>
+  
+</tal:group>
+
+</tal:body>
+</tal:page>

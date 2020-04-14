@@ -1,0 +1,105 @@
+<tal:page metal:use-macro="container/ptMaster/macros/page">
+<tal:body metal:fill-slot="body"
+          tal:define="root              here/getRoot;
+                      primary_group_id  python:test(len(here.plPrimaryGroupId()), here.plPrimaryGroupId()[0], None);
+                      this_group_id     python:request.get('group_id', getattr(here, 'group_id', None));
+                      group_id          python: test(this_group_id, this_group_id, primary_group_id);
+                      resource_id       request/resource_id | nothing;
+                      person            python:here.pyGetPeople(resource_id=resource_id, group_id=group_id);
+                      is_admin          here/pyIsAdmin;">
+  
+  <tal:person tal:condition="person">
+    <tal:definitions tal:define="photo            person/photo;
+                                 job_title        person/title | nothing;
+                                 department       person/department | nothing;
+                                 campus           person/campus | nothing;
+                                 office           person/office | nothing;
+                                 office_phone     person/office_phone | nothing;
+                                 other_phone      person/other_phone | nothing;
+                                 email            person/email | nothing;
+                                 url              person/url | nothing;
+                                 bio              person/bio | nothing;
+                                 profile_content  person/profile_content | nothing;
+                                 cv               person/cv | nothing;"
+                      tal:on-error="python:request.RESPONSE.redirect('./?msg=Unable+to+display+details&msg_class=warning')">
+    
+      <div class="col col-xs-4 col-sm-3 pull-right text-right photo" 
+           tal:condition="photo">
+        <img tal:condition="python: photo"
+             tal:attributes="src python:photo.pyPhoto(width=240, height=320, url_only=1);" />
+      </div>
+      
+      <h1 class="person-name">
+        <span tal:replace="structure person/first_name | nothing"></span>
+        <span tal:replace="structure person/middle_name | nothing"></span>
+        <span class="profile-last-name" 
+              tal:content="structure person/last_name | nothing"></span>
+      </h1>
+      
+      <div class="person-title"
+           tal:content="structure job_title"></div>
+      <div class="person-department"
+           tal:content="structure department"></div>
+      <div class="person-campus"
+           tal:content="structure campus"></div>
+      
+      <table border="0" cellpadding="0" cellspacing="0" class="person-contact-info">
+      <tr valign="top"
+          tal:condition="office">
+        <th>Office:&nbsp;</th>
+        <td tal:content="structure office">
+        </td>
+      </tr>
+      <tr tal:condition="office_phone">
+        <th>Phone:&nbsp;</th>
+        <td tal:content="structure python:container.pyFormatPhone(office_phone, 0)"></td>
+      </tr>
+      <tr tal:condition="other_phone">
+        <th>&nbsp;</th>
+        <td tal:content="structure python:container.pyFormatPhone(other_phone, 0)"></td>
+      </tr>
+      <tr tal:condition="email">
+        <th>Email:&nbsp;</th>
+        <td>
+          <a tal:attributes="href string:mailto:${email}"
+             tal:content="email">email</a>
+        </td>
+      </tr>
+      <tr tal:condition="url">
+        <th>Homepage:&nbsp;</th>
+        <th>
+          <a tal:attributes="href url"
+             tal:content="url">http://www.url.com/</a>
+        </th>
+      </tr>
+      </table>
+      
+      <tal:profile-content tal:condition="python:profile_content and profile_content.strip() != '>df'"
+                           tal:content="structure profile_content" />
+                           
+      <tal:cv tal:condition="python:cv and cv.strip() != '>df'">
+        <h2>Curriculum Vitae</h2>
+        <p><a tal:define="filename python:root.ResourceDB.ResourceFiles[cv].filename;"
+              tal:attributes="href string://engineering.purdue.edu/ResourceDB/ResourceFiles/${cv}"
+              tal:content="filename"
+              tal:on-error="string:(File not found)"></a>
+        </p>
+      </tal:cv>
+      
+      <div class="person-bio"
+           tal:condition="bio | nothing"
+           tal:content="structure bio">
+      </div>
+      
+      <p>
+        <a class="people-list-edit"
+           tal:condition="is_admin | nothing"
+           tal:attributes="href string:/ResourceDB/ptResource?group_id=${primary_group_id}&resource_id=${request/resource_id};
+                           title string:Administrators of the ${group/short_name | string:} RDB group can edit the entry for ${person/first_name} ${person/last_name};">Edit</a>
+      </p>
+    
+    </tal:definitions>
+  </tal:person>
+
+</tal:body>
+</tal:page>

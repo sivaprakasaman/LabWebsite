@@ -1,0 +1,42 @@
+<dtml-try>
+  <dtml-var "Engr.People['local.css']">
+<dtml-except>
+</dtml-try>
+
+.person-title,
+.person-department {
+  margin-bottom: 0;
+}
+
+.person-campus {
+  margin-bottom: 1.5em;
+}
+
+.people-list {
+  margin-bottom: 45px;
+}
+
+.people-list-bio,
+.person-bio {
+  margin-top: 1em;
+}
+
+.people-list-edit {
+  color: #bbb;
+  font-size: .9em;
+  display: block;
+  text-decoration: none;
+}
+
+.people-list-edit:hover {
+  text-decoration: underline;
+}
+
+.people-list-edit.edit-group {
+  position: relative;
+  top: -1em;
+}
+
+.person-group-list {
+  padding-left: 0;
+}

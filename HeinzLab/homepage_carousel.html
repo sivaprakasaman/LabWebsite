@@ -1,0 +1,11 @@
+<tal:carousel tal:define="source python:container.carousel;"
+              tal:content="structure python:root.Wraps.Widgets3.Carousel2.widget(
+                source=source, 
+                widget_id='carousel',
+                autostart='true',
+                interval=3000, 
+                pause='hover',                  
+                wrap='true',
+                keyboard='true'
+              )"
+              tal:on-error="structure string:<div class='hero error col-lg-8 col-md-8 col-sm-8'><p>There was a problem rendering the carousel.</p></div>" />

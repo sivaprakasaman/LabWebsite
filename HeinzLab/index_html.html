@@ -1,0 +1,41 @@
+<tal:page metal:use-macro="root/Wraps/ECO/wrap7/ptHomePage/macros/homepage">
+<tal:body metal:fill-slot="body">
+                       
+  
+<div class="container">
+  <div class="row">
+  
+    <!-- LEFT side options -->
+    
+    <!-- The line below inserts a static hero image; comment it out if you want to use the carousel instead -->
+    <!--  <tal:static-hero-image tal:content="structure container/homepage_hero_image" /> -->
+    
+    <!-- If you want a slideshow (carousel) instead of a static image, comment out the line above, and uncomment the one below -->
+    <tal:carousel tal:content="structure container/homepage_carousel" />
+    
+    
+    <!-- RIGHT side options -->
+    
+    <!-- The line below inserts tabs for News and Events; comment it out if you want to the four-feature grid boxes instead -->
+    <tal:news-events tal:content="structure container/homepage_news_events" />
+    
+    <!-- If you want a grid of four featured links, comment out the line above, and uncomment the one below -->
+    <!-- <tal:grid tal:content="structure container/homepage_grid_links" /> -->
+    
+  </div>
+  <div class="row">
+    <div class="maincontent col-lg-9 col-md-9 col-sm-9 right">
+    
+      <tal:homepage-content tal:content="structure container/homepage_content | nothing" />
+      
+    </div>
+    <div class="feature col-lg-3 col-md-3 col-sm-3">
+    
+      <tal:links tal:content="structure container/homepage_feature_links | nothing" />
+      
+    </div>
+  </div>
+</div>
+
+</tal:body>
+</tal:page>
